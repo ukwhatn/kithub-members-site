@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Skill < ApplicationRecord
   belongs_to :skill_genre
   belongs_to :user
@@ -5,5 +7,4 @@ class Skill < ApplicationRecord
   has_many :users, through: :user_skills
 
   validates :name, presence: true
-
 end

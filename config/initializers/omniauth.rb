@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   # google
   ## ref: https://zenn.dev/batacon/articles/e9b4a88ede2889#7%2F7

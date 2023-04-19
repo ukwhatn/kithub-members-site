@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Work < ApplicationRecord
   belongs_to :user
   belongs_to :work_genre
@@ -5,5 +7,4 @@ class Work < ApplicationRecord
   has_many :work_likes
 
   validates :name, presence: true
-
 end

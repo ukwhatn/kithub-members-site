@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGoogleAccounts < ActiveRecord::Migration[7.0]
   def change
     create_table :google_accounts, id: false do |t|
