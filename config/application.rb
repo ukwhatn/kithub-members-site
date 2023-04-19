@@ -18,5 +18,15 @@ module KithubMembersSite
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # cache store
+    config.cache_store = :redis_cache_store, {
+      host: 'redis',
+      port: 6379,
+      db: 0,
+      namespace: 'cache'
+    }, {
+      expires_in: 90.minutes
+    }
   end
 end
