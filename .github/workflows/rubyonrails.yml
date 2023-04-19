@@ -14,17 +14,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      mariadb:
         image: mariadb:10
         ports:
           - "5432:5432"
         env:
-          MARIADB_DATABASE: rails_test
           MARIADB_USER: rails
           MARIADB_PASSWORD: password
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      DBHOST: mariadb
+      DBPORT: 5432
+      DBUSER: rails
+      DBPASS: password
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
