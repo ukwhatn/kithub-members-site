@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_132250) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
   create_table "departments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "faculty_id", null: false
@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_132250) do
 
   create_table "github_accounts", id: :string, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
+    t.string "email", null: false
     t.string "avatar_url"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
@@ -68,6 +69,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_132250) do
 
   create_table "google_accounts", id: :string, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name", null: false
+    t.string "email", null: false
+    t.string "avatar_url"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kindai_accounts", id: :string, charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
     t.string "avatar_url"
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
