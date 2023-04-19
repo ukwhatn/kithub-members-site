@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SkillGenre < ApplicationRecord
   has_many :skills
   has_many :user_skills, through: :skills

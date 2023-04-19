@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class EquipmentRental < ApplicationRecord
   belongs_to :equipment
   belongs_to :user

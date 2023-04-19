@@ -1,9 +1,8 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
-  has_many :discord_accounts
-  has_many :github_accounts
-  has_many :google_accounts
+  has_one :discord_account, dependent: :destroy
+  has_one :github_account, dependent: :destroy
+  has_one :google_account, dependent: :destroy
+  has_one :kindai_account, dependant: :destroy
 
   has_many :messages, foreign_key: :sender_id
   has_many :message_receivers

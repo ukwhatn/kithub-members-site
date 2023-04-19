@@ -3,10 +3,18 @@
     <%= image_tag "logo-bottom.png" %>
   </div>
   <div class="row flex-none w-full mt-3">
-    <%= link_to "/auth/kindai",
-                class:"block text-center text-white bg-kindai p-2 rounded-xl" ,
+    <%= link_to "/auth/discord",
+                class: "block text-center text-white bg-discord-black p-2 rounded-xl mt-3",
                 data: { turbo: false } do %>
-      <i class="fa-brands fa-google" style="color: white;"></i> Sign in with Google
+      <i class="fa-brands fa-discord" style="color: white;"></i> Discordでログイン
     <% end %>
+    <%= link_to "/auth/kindai",
+                class: "block text-center text-white bg-kindai p-2 rounded-xl mt-3",
+                data: { turbo: false } do %>
+      <i class="fa-brands fa-google" style="color: white;"></i> kindai.ac.jpでログイン
+    <% end %>
+  </div>
+  <div class="row flex-none w-full mt-3">
+    <%= session["auth"]["discord"] %>
   </div>
 </div>

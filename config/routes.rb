@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -12,6 +10,7 @@ Rails.application.routes.draw do
   # oauth
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
+  get 'auth/not_found', to: 'sessions#not_found'
 
   scope :register do
     get '1' => 'registerations#step1'

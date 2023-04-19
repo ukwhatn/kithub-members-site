@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Equipment < ApplicationRecord
   has_many :equipment_rentals
 

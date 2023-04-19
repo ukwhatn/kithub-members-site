@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class EntryLog < ApplicationRecord
   belongs_to :user
 

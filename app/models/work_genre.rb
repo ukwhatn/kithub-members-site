@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class WorkGenre < ApplicationRecord
   has_many :works
   has_many :work_likes, through: :works
