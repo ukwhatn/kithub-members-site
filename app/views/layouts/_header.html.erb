@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark">
+  <div class="container-lg">
+    <%= link_to root_path do %>
+      <%= image_tag "logo.svg", class: "navbar-brand", style: "height: 60px;" %>
+    <% end %>
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse my-2" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <%= link_to "参加申請はこちら", root_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "メンバーログイン", root_path, class: "nav-link" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

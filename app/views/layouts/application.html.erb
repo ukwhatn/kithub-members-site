@@ -1,19 +1,38 @@
+<%
+  def show_header_and_footer?
+    !current_page?(root_path) && !current_page?(controller: "sessions") && !current_page?(controller: "registrations")
+  end
+%>
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>KithubMembersSite</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<head>
+  <title>KITHUB メンバーズサイト</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+<body>
+
+<% if show_header_and_footer? %>
+  <header>
+    <%= render "layouts/header" %>
+  </header>
+<% end %>
+
+<main class="container mx-auto mt-28 px-5 flex">
+  <%= yield %>
+</main>
+
+<% if show_header_and_footer? %>
+  <header>
+    <%= render "layouts/footer" %>
+  </header>
+<% end %>
+</body>
 </html>
