@@ -22,13 +22,26 @@ module KithubMembersSite
     # config.eager_load_paths << Rails.root.join("extras")
 
     # cache store
+    config.session_store = :redis_store, {
+      servers: [
+        {
+          host: 'redis',
+          port: 6379,
+          db: 0,
+          namespace: 'session'
+        }
+      ]
+    }
+
     config.cache_store = :redis_store, {
-      host: 'redis',
-      port: 6379,
-      db: 0,
-      namespace: 'cache'
-    }, {
-      expires_in: 90.minutes
+      servers: [
+        {
+          host: 'redis',
+          port: 6379,
+          db: 0,
+          namespace: 'session'
+        }
+      ]
     }
   end
 end
