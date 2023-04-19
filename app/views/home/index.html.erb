@@ -1,3 +1,12 @@
-<div class="flex">
-  test
+<div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg" style="height: 100vh">
+  <div class="row flex-none w-full">
+    <%= image_tag "logo-bottom.png" %>
+  </div>
+  <div class="row flex-none w-full mt-3">
+    <%= link_to "/auth/kindai",
+                class:"block text-center text-white bg-kindai p-2 rounded-xl" ,
+                data: { turbo: false } do %>
+      <i class="fa-brands fa-google" style="color: white;"></i> Sign in with Google
+    <% end %>
+  </div>
 </div>
