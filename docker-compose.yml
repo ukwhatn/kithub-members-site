@@ -1,0 +1,38 @@
+services:
+  web:
+    container_name: rails
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "52021:3000"
+    env_file:
+      - .env
+    environment:
+      - HISTFILE=/usr/src/app/log/.bash_history
+    depends_on:
+      - redis
+    networks:
+      - cache_network
+    tty: true
+    restart: always
+
+  redis:
+    container_name: redis
+    image: redis:7.0
+    volumes:
+      - redis_data:/data
+    expose:
+      - 6379
+    networks:
+      - cache_network
+    restart: always
+
+volumes:
+  redis_data:
+  bundle:
+
+networks:
+  cache_network:
+    driver: bridge
