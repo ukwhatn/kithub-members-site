@@ -151,6 +151,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.14.3-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
     oauth2 (2.0.9)
@@ -284,6 +286,8 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.0.27-aarch64-linux)
+      railties (>= 6.0.0)
     tailwindcss-rails (2.0.27-arm64-darwin)
       railties (>= 6.0.0)
     thor (1.2.1)
@@ -314,6 +318,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-22
 
 DEPENDENCIES
@@ -335,6 +340,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler
   rails (~> 7.0.4, >= 7.0.4.3)
+  redis
   redis-rails
   rubocop-rails
   selenium-webdriver
