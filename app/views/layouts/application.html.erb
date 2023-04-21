@@ -1,13 +1,16 @@
 <%
   def show_header_and_footer?
-    !current_page?(root_path) && !current_page?(controller: "sessions") && !current_page?(controller: "registrations")
+    !current_page?(root_path) && !controller_name in ["sessions", "registrations"]
   end
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title>KITHUB メンバーズサイト</title>
+   <title>
+     <%# 動的なページタイトル構築 : https://note.com/hbkk/n/n9d1069911e19%>
+     <%= page_title(yield(:title)) %>
+   </title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -35,6 +38,16 @@
   <header>
     <%= render "layouts/footer" %>
   </header>
+<% end %>
+
+<% if @alerts.present? %>
+  <div class="fixed bottom-0 left-0 w-full flex justify-center">
+    <% @alerts.each do |alert| %>
+      <%= render partial: "components/toast/warning", :locals => {
+        message: alert,
+      } %>
+    <% end %>
+  </div>
 <% end %>
 </body>
 </html>

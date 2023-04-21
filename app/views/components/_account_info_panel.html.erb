@@ -1,0 +1,43 @@
+<div class="block text-lg bg-white shadow-md rounded-xl overflow-hidden">
+  <div class="flex justify-between items-center text-left text-white <%= bg_class %> px-3 py-2 text-sm font-semibold">
+        <span>
+          <%= title %>
+        </span>
+    <% if defined? icon %>
+      <%= image_tag icon, width: "30px" %>
+    <% end %>
+    <% if defined? fa_classes %>
+      <%
+        cls_str = ""
+        fa_classes.split(" ").each { |c| cls_str += "fa-#{c} " }
+      %>
+      <i class="mr-1 <%= cls_str %>" style="color: <%= color %>; font-size: 30px;"></i>
+    <% end %>
+  </div>
+  <div class="p-5 font-light">
+    <% if object.present? %>
+      <div class="flex justify-center items-center ">
+        <% if object.avatar_url.present? %>
+          <%= image_tag object.avatar_url,
+                        class: "rounded-full w-10 h-10 mr-2"
+          %>
+        <% end %>
+        <%= object[display_key] %>
+      </div>
+      <div class="text-right text-sm mt-5">
+        <%= link_to "ログアウト", session_sign_out_provider_path(provider), class: "hover-line", data: { turbo_method: :delete } %>
+        |
+        <%= link_to "別のアカウントでログイン", "/auth/#{provider}", class: "hover-line" %>
+      </div>
+    <% else %>
+      <%= render partial: "components/link_button", :locals => {
+        href: "/auth/#{provider}",
+        text: "クリックしてログイン",
+        color: "white",
+        bg_class: bg_class,
+        turbo: false,
+        classes: "text-sm"
+      } %>
+    <% end %>
+  </div>
+</div>

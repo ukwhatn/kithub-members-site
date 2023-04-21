@@ -1,0 +1,5 @@
+<% id = rand(100) %>
+<div id="warning-alert_<%= id %>" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+  <i class="fa-solid fa-circle-exclamation"></i> <strong class="font-bold"><%= message %></strong>
+  <i class="dismiss-button fa-solid fa-xmark cursor-pointer" data-dismiss_target="#warning-alert_<%= id %>"></i>
+</div>

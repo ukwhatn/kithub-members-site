@@ -1,0 +1,247 @@
+<% provide(:title, '参加申請') %>
+<div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg my-10" style="min-height: 100vh">
+  <div class="row flex-none w-full">
+    <%= image_tag "logo-bottom.png" %>
+  </div>
+  <div class="row flex-none w-full text-center text-kindai mb-5">
+    <div class="text-2xl font-semibold">
+      参加申請ページ
+    </div>
+    <div class="text-sm font-light mt-1">
+      任意項目以外のすべての情報を入力してください
+    </div>
+  </div>
+  <% if @user.errors.present? %>
+    <div class="text-red-500 text-sm font-bold">
+      以下のエラーを修正してください
+    </div>
+  <% end %>
+
+  <div class="row flex-none w-full text-center my-3">
+    <span class="text-lg font-semibold px-2 py-1 text-kindai border-b border-kindai">
+      外部アカウントの情報
+    </span>
+  </div>
+
+  <div class="row flex-none w-full text-center border-kindai my-3 max-w-md">
+    <div>
+      <% if @user.errors.include?(:kindai) %>
+        <div class="text-red-500 text-sm font-light">
+          <%= @user.errors.messages_for(:kindai) %>
+        </div>
+      <% end %>
+      <%= render partial: "components/account_info_panel", :locals => {
+        provider: "kindai",
+        object: @auth_data["kindai"].present? ? @auth_data["kindai"] : nil,
+        color: "white",
+        bg_class: "bg-kindai",
+        icon: "kindai-logo-white.svg",
+        title: "kindai.ac.jpアカウント",
+        display_key: "email"
+      } %>
+    </div>
+    <div class="my-10">
+      <% if @user.errors.include?(:google) %>
+        <div class="text-red-500 text-sm font-light">
+          <%= @user.errors.messages_for(:google) %>
+        </div>
+      <% end %>
+      <%= render partial: "components/account_info_panel", :locals => {
+        provider: "google",
+        object: @auth_data["google"].present? ? @auth_data["google"] : nil,
+        color: "white",
+        bg_class: "bg-google-blue",
+        fa_classes: "brands google",
+        title: "Googleアカウント(任意)",
+        display_key: "email"
+      } %>
+    </div>
+    <div>
+      <% if @user.errors.include?(:discord) %>
+        <div class="text-red-500 text-sm font-light">
+          <%= @user.errors.messages_for(:discord) %>
+        </div>
+      <% end %>
+      <%= render partial: "components/account_info_panel", :locals => {
+        provider: "discord",
+        object: @auth_data["discord"].present? ? @auth_data["discord"] : nil,
+        color: "white",
+        bg_class: "bg-discord",
+        fa_classes: "brands discord",
+        title: "Discordアカウント",
+        display_key: "name"
+      } %>
+    </div>
+
+  </div>
+
+
+  <div class="row flex-none w-full text-center my-3">
+    <span class="text-lg font-semibold px-2 py-1 text-kindai border-b border-kindai">
+      その他の情報
+    </span>
+  </div>
+
+  <%= form_with model: @user, url: register_path, method: :post, data: { turbo: false } do |f| %>
+    <div class="space-y-2">
+      <div class="grid grid-cols-12 gap-x-6 gap-y-8 flex items-end">
+        <div class="col-span-6">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :name_last,
+            title: "氏名（漢字）",
+            placeholder: "近大",
+            value: nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-6">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :name_first,
+            title: "",
+            placeholder: "太郎",
+            value: nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-6">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :name_last_kana,
+            title: "氏名（カタカナ）",
+            placeholder: "キンダイ",
+            value: nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-6">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :name_first_kana,
+            title: "",
+            placeholder: "タロウ",
+            value: nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-12" id="grade-input-wrapper">
+          <%= render partial: "components/form/select", :locals => {
+            f: f,
+            key: :grade,
+            title: "学年",
+            options: (1...7).map { |i| ["#{i}年", i] }.append(["既卒", 0]),
+            option_value: :id,
+            option_text: :name,
+            errors: @user.errors,
+            prompt: "選択してください"
+          } %>
+        </div>
+        <div class="col-span-6" id="faculty-input-wrapper">
+          <%= render partial: "components/form/collection_select", :locals => {
+            f: f,
+            key: :faculty_id,
+            title: "学部・研究科",
+            options: Faculty.all,
+            option_value: :id,
+            option_text: :name,
+            prompt: "選択してください",
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-6" id="department-input-wrapper">
+          <%= render partial: "components/form/collection_select", :locals => {
+            f: f,
+            key: :department_id,
+            title: "学科",
+            options: [],
+            option_value: :id,
+            option_text: :name,
+            disabled: true,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-12" id="student_id-input-wrapper">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :student_id,
+            title: "学籍番号",
+            placeholder: "2XXYYYZZZZ",
+            value: @auth_data["kindai"].present? ? @auth_data["kindai"].get_student_id_from_email : nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :phone_number,
+            title: "電話番号",
+            placeholder: "08012345678",
+            value: nil,
+            errors: @user.errors
+          } %>
+        </div>
+        <div class="col-span-12 flex items-center justify-center">
+          <%= render partial: "components/form/button", :locals => {
+            f: f,
+            text: "参加申請",
+            data: { turbo_confirm: "参加申請を行います。よろしいですか？" }
+          } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+    // 学部の選択肢が変更されたときに発火し、学科情報を更新する
+    window.addEventListener("load", () => {
+        const facultySelect = $("#faculty-input-wrapper select")
+        const departmentSelect = $("#department-input-wrapper select")
+
+        facultySelect.on("change", function () {
+            const facultyId = $(this).val()
+            if (facultyId === "") {
+                departmentSelect.empty()
+                departmentSelect.prop("disabled", true)
+                return
+            }
+            fetch(`/api/faculties/${facultyId}/departments`)
+                .then(response => response.json())
+                .then(data => {
+                    departmentSelect.empty()
+                    data.forEach(d => {
+                        departmentSelect.append(`<option value="${d[0]}">${d[1]}</option>`)
+                    })
+                    departmentSelect.prop("disabled", false)
+                })
+        })
+    })
+
+    // 既卒が選択された時に発火し、学部・学科・学籍番号の入力を無効化する
+    window.addEventListener("load", () => {
+        const gradeSelect = $("#grade-input-wrapper select");
+        const facultySelect = $("#faculty-input-wrapper select");
+        const departmentSelect = $("#department-input-wrapper select");
+        const studentIdInput = $("#student_id-input-wrapper input");
+        gradeSelect.on("change", function () {
+            const graduated = $(this).val() === "0"
+            if(graduated){
+                facultySelect.val("")
+                departmentSelect.val("")
+                studentIdInput.val("")
+                facultySelect.prop("disabled", true)
+                departmentSelect.prop("disabled", true)
+                studentIdInput.prop("disabled", true)
+            } else {
+                facultySelect.prop("disabled", false)
+                studentIdInput.prop("disabled", false)
+
+                if(facultySelect.val() === ""){
+                    departmentSelect.prop("disabled", true)
+                } else {
+                    departmentSelect.prop("disabled", false)
+                }
+            }
+        })
+    })
+</script>

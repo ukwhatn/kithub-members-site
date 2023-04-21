@@ -4,12 +4,11 @@ class GithubAccount < ApplicationRecord
   validates :name, presence: true
   validates :avatar_url, presence: true, format: { with: %r{\Ahttps?://\S+\z} }, allow_nil: true
 
-  def create_from_omniauth(payload)
-    obj = self.new
-    obj.id = payload.uid
-    obj.name = payload.info.name
-    obj.email = payload.info.email
-    obj.avatar_url = payload.info.image
-    obj
+  def set_value_from_omniauth(payload)
+    self.id = payload.uid
+    self.name = payload.info.name
+    self.email = payload.info.email
+    self.avatar_url = payload.info.image
+    self
   end
 end

@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :reset_callback_referer, only: [:not_found]
   include SessionsHelper
 
   def create
@@ -25,8 +26,18 @@ class SessionsController < ApplicationController
       if session['auth'].nil?
         session['auth'] = {}
       end
-      session['auth'][provider] = model_class.new.set_value_from_omniauth(payload)
-      redirect_to root_path
+      obj = model_class.new.set_value_from_omniauth(payload)
+      if obj.nil?
+        session['auth'][provider] = false
+      else
+        session['auth'][provider] = obj
+      end
+
+      if session['auth']['referer'].present?
+        redirect_to session['auth']['referer']
+      else
+        redirect_to auth_not_found_path
+      end
       return
     end
 
@@ -36,9 +47,18 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    reset_session
     redirect_to root_path
   end
 
   def not_found
+  end
+
+  def destroy_auth
+    provider = params[:provider]
+    if session['auth'].present? && session['auth'][provider].present?
+      session['auth'].delete(provider)
+    end
+    redirect_to request.referer, status: :see_other
   end
 end

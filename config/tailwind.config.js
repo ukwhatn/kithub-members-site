@@ -14,9 +14,11 @@ module.exports = {
             },
             colors: {
                 'kindai': '#00507e',
+                'kindai-light': '#0072b5',
                 'discord': '#7289da',
-                'discord-black': '#282b30'
-            }
+                'discord-black': '#282b30',
+                'google-blue': '#4285f4'
+            },
         },
     },
     plugins: [

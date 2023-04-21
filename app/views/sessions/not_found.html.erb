@@ -1,0 +1,22 @@
+<div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg" style="height: 100vh">
+  <div class="row flex-none w-full">
+    <%= image_tag "logo-bottom.png" %>
+  </div>
+  <div class="row flex-none w-full text-center text-kindai">
+    <div class="text-xl font-semibold my-3 mb-5">
+      アカウントが見つかりませんでした
+    </div>
+    <%= render partial: "components/link_button", :locals => {
+      href: register_path,
+      text: "新規登録（参加申請）",
+      color: "white",
+      bg_class: "bg-kindai",
+      fa_classes: "solid door-open",
+      turbo: false
+    } %>
+    <%= link_to root_path,
+                class: "hover-line text-center p-2 text-kithub" do %>
+      トップページに戻る
+    <% end %>
+  </div>
+</div>

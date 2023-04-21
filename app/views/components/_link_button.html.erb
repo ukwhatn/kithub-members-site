@@ -1,0 +1,12 @@
+<%= link_to href,
+            class: "block text-center text-#{color} #{bg_class} p-2 rounded-xl my-3 #{defined? classes ? classes : ""}",
+            data: { turbo: turbo } do %>
+  <% if defined? fa_classes%>
+    <%
+      cls_str = ""
+      fa_classes.split(" ").each { |c| cls_str += "fa-#{c} " }
+    %>
+    <i class="mr-1 <%= cls_str %>" style="color: <%= color %>;"></i>
+  <% end %>
+  <%= text %>
+<% end %>
