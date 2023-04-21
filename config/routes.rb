@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   scope :register, as: 'register' do
     get '/' => 'registrations#new', as: :register
     post '/' => 'registrations#create'
+    get '/decline' => "registrations#decline", as: :decline
+  end
+
+  # members
+  scope :members, as: 'members' do
+    get '/' => 'members#index', as: :my_page
+    get '/:id' => 'members#show', as: :member
   end
 
   # API

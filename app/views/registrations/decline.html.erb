@@ -1,0 +1,20 @@
+<% provide(:title, '申請完了') %>
+<div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg my-10" style="min-height: 100vh">
+  <div class="row flex-none w-full">
+    <%= image_tag "logo-bottom.png" %>
+  </div>
+  <div class="row flex-none w-full text-center text-kindai mb-5">
+    <div class="text-2xl font-semibold">
+      参加申請ページ
+    </div>
+  </div>
+
+  <div class="row flex-none w-full text-center my-3">
+    <div class="text-xl font-semibold px-2 py-1 text-kindai">
+      参加申請は棄却されました
+    </div>
+    <div class="text-md font-light px-2 py-1 text-kindai">
+      お問い合わせは、<%= link_to "公式サイト", "https://kithub.jp", class: "font-semibold hover-line" %>からお願い致します
+    </div>
+  </div>
+</div>

@@ -41,8 +41,8 @@ class SessionsController < ApplicationController
       return
     end
 
-    session['auth'] = instance.user
-    redirect_to root_path
+    login(instance.user)
+    redirect_to members_my_page_path
 
   end
 

@@ -17,6 +17,19 @@ module SessionsHelper
     session[:user_id].present?
   end
 
+  def authenticate_user!
+    unless is_authenticated?
+      redirect_to root_path
+    end
+    if current_user.is_checked == false
+      redirect_to register_path
+    else
+      if current_user.is_approved == false
+        redirect_to register_decline_path
+      end
+    end
+  end
+
   def current_user
     User.find_by(id: session[:user_id])
   end

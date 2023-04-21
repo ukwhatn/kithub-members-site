@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
     # セッションが存在する
     if is_authenticated?
       if current_user.is_checked
-        redirect_to root_path
+        redirect_to members_my_page_path
         return
       else
         render :complete
@@ -89,6 +89,10 @@ class RegistrationsController < ApplicationController
     render :complete
   end
 
+  def decline
+
+  end
+
   private
 
   def user_params
@@ -122,4 +126,5 @@ class RegistrationsController < ApplicationController
 
     auth_data
   end
+
 end
