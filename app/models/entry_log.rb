@@ -1,7 +1,7 @@
 class EntryLog < ApplicationRecord
   belongs_to :user
 
-  validates :entry_at, presence: true, default: -> { Time.current }
+  validates :entry_at, presence: true
   validates :exit_at, presence: false
 
   def leave?

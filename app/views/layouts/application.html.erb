@@ -1,6 +1,6 @@
 <%
   def show_header_and_footer?
-    !current_page?(root_path) && !controller_name in ["sessions", "registrations"]
+    !current_page?(root_path) && !%w[sessions registrations].include?(controller_name)
   end
 %>
 
@@ -30,7 +30,7 @@
   </header>
 <% end %>
 
-<main class="<%= 'container mx-auto mt-28 px-5 flex' if show_header_and_footer? %>">
+<main class="<%= 'p-2 sm:p-5 w-full min-h-screen mx-auto max-w-7xl' if show_header_and_footer? %>">
   <%= yield %>
 </main>
 

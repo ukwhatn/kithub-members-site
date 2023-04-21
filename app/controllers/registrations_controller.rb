@@ -5,12 +5,15 @@ class RegistrationsController < ApplicationController
     # セッションが存在する
     if is_authenticated?
       if current_user.is_checked
-        redirect_to members_my_page_path
-        return
+        if current_user.is_approved
+          redirect_to members_my_page_path
+        else
+          render :decline
+        end
       else
         render :complete
-        return
       end
+      return
     end
 
     # OAuth2 callback後の遷移先をセット
@@ -89,16 +92,12 @@ class RegistrationsController < ApplicationController
     render :complete
   end
 
-  def decline
-
-  end
-
   private
 
   def user_params
     params.require(:user).permit(
       :name_last, :name_first, :name_last_kana, :name_first_kana,
-      :student_id, :faculty_id, :department_id, :grade, :phone_number
+      :student_id, :faculty_id, :department_id, :grade, :phone_number, :nickname
     )
   end
 
@@ -118,7 +117,7 @@ class RegistrationsController < ApplicationController
             end
           else
             # 問題なければモデルを作成して格納
-            auth_data[provider] = cls.new(data)
+            auth_data[provider] = data
           end
         end
       end

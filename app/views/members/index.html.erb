@@ -1,0 +1,83 @@
+<div class="flex flex-wrap gap-5 justify-stretch w-full max-w-5xl mx-auto">
+  <div class="flex-1 min-w-max bg-white shadow-sm">
+    <div class="bg-kindai text-white font-semibold px-5 py-2">
+      Welcome!
+    </div>
+    <div class="p-5">
+      <div class="mb-2">
+        <span class="font-semibold text-2xl inline-block mr-2"><%= @user.full_name %></span>
+        <span class="text-xl inline-block">さん</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <%= image_tag @user.image_url, class: "inline rounded-lg", width: "90px" %>
+        <div class="flex-1">
+          <div class="pl-4 leading-loose w-full">
+            <div>
+              <div class="text-xs sm:text-sm border-b border-kindai text-kindai mt-2">
+                ニックネーム
+              </div>
+              <div class="text-sm sm:text-base text-right">
+                <%= @user.nickname.present? ? @user.nickname : "未設定" %>
+              </div>
+              <div class="text-xs sm:text-sm border-b border-kindai text-kindai mt-2">
+                所属
+              </div>
+              <div class="text-sm sm:text-base text-right">
+                <%= @user.department_str %> <%= @user.grade_str %>
+              </div>
+              <div class="text-sm sm:text-base text-right">
+                <% @user.work_places do |work_place| %>
+                  <div>
+                    <%= work_place.name %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm border-b border-kindai text-kindai mt-2">
+                学籍番号
+              </div>
+              <div class="text-sm sm:text-base text-right">
+                <%= @user.graduated? ? "-" : @user.student_id %>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs sm:text-sm border-b border-kindai text-kindai mt-2">
+                メールアドレス
+              </div>
+              <div class="text-sm sm:text-base text-right">
+                <%= @user.email %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-1 min-w-max bg-white shadow-sm">
+    <div class="bg-kindai text-white font-semibold px-5 py-2">
+      未読メッセージ
+    </div>
+    <div class="p-5">
+      <% if @user.unread_messages.present? %>
+        PLACEHOLDER
+      <% else %>
+        新着メッセージはありません
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex-1 min-w-max bg-white shadow-sm">
+    <div class="bg-kindai text-white font-semibold px-5 py-2">
+      未読メッセージ
+    </div>
+    <div class="p-5">
+      <% if @user.unread_messages.present? %>
+        asiu
+      <% else %>
+        新着メッセージはありません
+      <% end %>
+    </div>
+  </div>
+</div>

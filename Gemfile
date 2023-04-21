@@ -61,7 +61,11 @@ gem 'omniauth-rails_csrf_protection'
 # sass
 gem 'dartsass-rails'
 
+# for localize
 gem 'rails-i18n'
+
+# markdown parser
+gem 'redcarpet'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

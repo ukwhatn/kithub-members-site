@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_21_144207) do
   create_table "departments", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name"
     t.integer "faculty_id"
@@ -48,6 +48,61 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
     t.integer "equipment_id"
     t.datetime "rental_start"
     t.datetime "rental_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_guests", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "event_time_frame_id"
+    t.string "name_first"
+    t.string "name_last"
+    t.string "name_first_kana"
+    t.string "name_last_kana"
+    t.string "student_id"
+    t.integer "grade"
+    t.integer "faculty_id"
+    t.integer "department_id"
+    t.boolean "attendance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+  end
+
+  create_table "event_members", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_time_frame_id"
+    t.boolean "attendance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_tag_joins", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "event_tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_tags", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_time_frames", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "event_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.integer "capacity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "description"
+    t.text "description_for_attendees"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -146,6 +201,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_work_places", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "work_place_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "name_first"
     t.string "name_last"
@@ -166,6 +228,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
     t.boolean "is_admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname"
   end
 
   create_table "work_genres", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -179,6 +242,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_075939) do
   create_table "work_likes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.integer "user_id"
     t.integer "work_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "work_places", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,5 +1,5 @@
 <% provide(:title, '参加申請') %>
-<div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg my-10" style="min-height: 100vh">
+<div class="flex flex-wrap items-stretch justify-center content-center mx-auto px-5 max-w-lg my-10" style="min-height: 100vh">
   <div class="row flex-none w-full">
     <%= image_tag "logo-bottom.png" %>
   </div>
@@ -121,6 +121,15 @@
             errors: @user.errors
           } %>
         </div>
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :nickname,
+            title: "ニックネーム (任意)",
+            placeholder: "キンタロー",
+            errors: @user.errors
+          } %>
+        </div>
         <div class="col-span-12" id="grade-input-wrapper">
           <%= render partial: "components/form/select", :locals => {
             f: f,
@@ -162,7 +171,7 @@
           <%= render partial: "components/form/text_field", :locals => {
             f: f,
             key: :student_id,
-            title: "学籍番号",
+            title: "学籍番号 (非公開)",
             placeholder: "2XXYYYZZZZ",
             errors: @user.errors,
             disabled: @user.grade == 0
@@ -172,7 +181,7 @@
           <%= render partial: "components/form/text_field", :locals => {
             f: f,
             key: :phone_number,
-            title: "電話番号",
+            title: "電話番号 (非公開)",
             placeholder: "08012345678",
             errors: @user.errors
           } %>

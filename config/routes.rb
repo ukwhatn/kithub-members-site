@@ -33,6 +33,14 @@ Rails.application.routes.draw do
     get '/:id' => 'members#show', as: :member
   end
 
+  # events
+  scope :events, as: 'events' do
+    get '/' => 'events#index', as: :events
+    post '/' => 'events#create'
+    get '/new' => 'events#new', as: :new_event
+    get '/:id' => 'events#show', as: :event
+  end
+
   # API
   scope :api, as: 'api' do
     # faculties

@@ -4,5 +4,5 @@ class SkillGenre < ApplicationRecord
   has_many :users, through: :user_skills
 
   validates :name, presence: true
-  validates :position, presence: true, default: 0
+  validates :position, presence: true
 end

@@ -27,6 +27,12 @@ ja:
       work_genres: 成果物ジャンル
       work_likes: 成果物いいね
       works: 成果物
+      event: イベント
+      event_guests: イベント外部参加者
+      event_members: イベント参加者
+      event_tag_joins: イベントタグ中間テーブル
+      event_tags: イベントタグ
+      event_time_frames: イベント参加枠
     attributes:
       user:
         name_first: 名
@@ -46,6 +52,12 @@ ja:
         is_approved: 参加許可フラグ
         is_resigned: 退会フラグ
         is_admin: 管理者フラグ
+      event:
+        time_frame_str: 参加枠
+        name: イベント名
+        location: 開催場所
+        description: イベント説明
+        description_for_attendees: 参加者向け情報
 
   date:
     abbr_day_names:

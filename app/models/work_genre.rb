@@ -3,6 +3,6 @@ class WorkGenre < ApplicationRecord
   has_many :work_likes, through: :works
 
   validates :name, presence: true
-  validates :position, presence: true, default: 0
-  validates :color, presence: true, default: '#ffffff'
+  validates :position, presence: true
+  validates :color, presence: true
 end

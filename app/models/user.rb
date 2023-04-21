@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include SessionsHelper
   # 必ずコントローラ内で確認すること
   # 既卒 => google, discord必須
   # 現役 => kindai, discord必須
@@ -18,6 +19,9 @@ class User < ApplicationRecord
 
   has_many :equipment_rentals
   has_many :entry_logs
+
+  has_many :user_work_places
+  has_many :work_places, through: :user_work_places
 
   validates :name_last, presence: true
   validates :name_first, presence: true
@@ -50,5 +54,69 @@ class User < ApplicationRecord
   def new
     self.optimize
     super
+  end
+
+  def full_name
+    "#{self.name_last} #{self.name_first}"
+  end
+
+  def image_url(provider = nil)
+    if provider.present?
+      provider_class(provider).find_by(user_id: self.id).avatar_url
+    else
+      [self.google_account, self.kindai_account, self.discord_account].each do |account|
+        return account.avatar_url if account.present?
+      end
+    end
+
+    "noimage-sq.svg"
+  end
+
+  def department_str
+    if graduated?
+      "既卒"
+    else
+      "#{self.faculty.name} #{self.department.name}"
+    end
+  end
+
+  def grade_str
+    if graduated?
+      "既卒"
+    else
+      "#{self.grade}年"
+    end
+  end
+
+  def email
+    self.graduated? ? self.google_account.email : self.kindai_account.email
+  end
+
+  def unread_messages
+    self.message_receivers.where(read: false).map(&:message)
+  end
+
+  def update_work_places(work_place_str_list)
+    # 更新後の勤務先をリスト化
+    work_places = []
+    work_place_str_list.each do |work_place_str|
+      work_place = WorkPlace.find_by(name: work_place_str)
+      if work_place.present?
+        work_places << work_place
+      else
+        work_places << WorkPlace.create!(name: work_place_str)
+      end
+    end
+
+    # 削除
+    self.user_work_places.each do |user_work_place|
+      user_work_place.destroy! unless work_places.include?(user_work_place.work_place)
+    end
+
+    # 追加
+    work_places.each do |work_place|
+      self.user_work_places.create!(work_place_id: work_place.id) unless self.work_places.include?(work_place)
+    end
+
   end
 end

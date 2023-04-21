@@ -1,0 +1,102 @@
+<% provide(:title, 'イベント作成') %>
+<div class="flex flex-wrap items-stretch justify-center content-center mx-auto px-5 max-w-2xl my-10" style="min-height: 100vh">
+  <div class="row flex-none w-full text-center text-kindai mb-5">
+    <div class="text-2xl font-semibold">
+      イベント作成
+    </div>
+  </div>
+  <% if @event.errors.present? %>
+    <div class="text-red-500 text-sm font-bold">
+      以下のエラーを修正してください
+    </div>
+  <% end %>
+
+  <%= form_with model: @event, url: events_path, method: :post, class: "w-full", data: { turbo: false } do |f| %>
+    <div class="space-y-2">
+      <div class="grid grid-cols-12 gap-6 flex items-end">
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :name,
+            title: "イベント名",
+            placeholder: "〇〇勉強会",
+            errors: @event.errors
+          } %>
+        </div>
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :location,
+            title: "開催場所",
+            placeholder: "〇〇教室",
+            errors: @event.errors
+          } %>
+        </div>
+
+        <div class="col-span-12" id="time_frame_str-input-wrapper">
+          <%= render partial: "components/form/text_area", :locals => {
+            f: f,
+            key: :time_frame_str,
+            title: "参加枠・最大参加人数",
+            rows: 4,
+            errors: @event.errors
+          } %>
+          <div class="text-gray-600 text-sm text-light leading-relaxed">
+            1行に1枠で記述してください<br>
+            Format(厳守):
+            <pre class="inline-block text-red bg-gray-200 px-2">2023-04-30 10:00 - 2023-05-01 12:00 - 50</pre>
+            <br>
+          </div>
+        </div>
+
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_area", :locals => {
+            f: f,
+            key: :description,
+            title: "イベント説明(Markdown)",
+            rows: 20,
+            errors: @event.errors
+          } %>
+        </div>
+
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_area", :locals => {
+            f: f,
+            key: :description_for_attendees,
+            title: "イベント参加者向け情報(Markdown)",
+            rows: 20,
+            errors: @event.errors
+          } %>
+        </div>
+        <div class="col-span-12">
+          <%= render partial: "components/form/text_field", :locals => {
+            f: f,
+            key: :event_tags_str,
+            title: "タグ",
+            placeholder: "空白区切りで入力",
+            errors: @event.errors,
+            value: @event_tags_str
+          } %>
+        </div>
+
+        <div class="col-span-12 flex items-center justify-center">
+          <%= render partial: "components/form/button", :locals => {
+            f: f,
+            text: "イベント作成",
+            data: { turbo_confirm: "イベントを作成します。よろしいですか？" }
+          } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @time_frame_str.present? %>
+    <script>
+        window.addEventListener(
+            "load", () => {
+                $("#time_frame_str-input-wrapper textarea").val(`<%= @time_frame_str %>`)
+            }
+        )
+    </script>
+  <% end %>
+</div>
