@@ -2,6 +2,17 @@ class RegistrationsController < ApplicationController
   include SessionsHelper
 
   def new
+    # セッションが存在する
+    if is_authenticated?
+      if current_user.is_checked
+        redirect_to root_path
+        return
+      else
+        render :complete
+        return
+      end
+    end
+
     # OAuth2 callback後の遷移先をセット
     unless session['auth'].present?
       session['auth'] = {}
@@ -73,8 +84,9 @@ class RegistrationsController < ApplicationController
       return
     end
 
-    # トランザクションが正常終了したらリダイレクト
-    redirect_to root_path
+    # トランザクションが正常終了したらcompleteを表示
+    login(@user)
+    render :complete
   end
 
   private

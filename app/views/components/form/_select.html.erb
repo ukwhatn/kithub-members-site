@@ -1,6 +1,11 @@
 <% unless title.blank? %>
   <%= f.label key, title, class: "block text-sm font-medium leading-6 text-gray-900" %>
 <% end %>
+<% if (defined? errors) && errors.include?(key) %>
+  <div class="text-red-500 text-sm font-light">
+    <%= errors.full_messages_for(key).first %>
+  </div>
+<% end %>
 <div class="mt-2">
   <%= f.select key, options,
                { prompt: defined?(prompt) ? prompt : false },
@@ -9,8 +14,3 @@
                  disabled: defined?(disabled) ? disabled : false
                } %>
 </div>
-<% if (defined? errors) && errors.include?(key) %>
-  <div class="text-red-500 text-sm font-light">
-    <%= errors.full_messages_for(key).first %>
-  </div>
-<% end %>

@@ -1,4 +1,4 @@
-<% provide(:title, '参加申請') %>
+<% provide(:title, '申請完了') %>
 <div class="flex flex-wrap items-center justify-center content-center mx-auto px-5 max-w-lg my-10" style="min-height: 100vh">
   <div class="row flex-none w-full">
     <%= image_tag "logo-bottom.png" %>
@@ -84,14 +84,13 @@
 
   <%= form_with model: @user, url: register_path, method: :post, data: { turbo: false } do |f| %>
     <div class="space-y-2">
-      <div class="grid grid-cols-12 gap-x-6 gap-y-8 flex items-end">
+      <div class="grid grid-cols-12 gap-x-6 gap-y-2 flex items-end">
         <div class="col-span-6">
           <%= render partial: "components/form/text_field", :locals => {
             f: f,
             key: :name_last,
             title: "氏名（漢字）",
             placeholder: "近大",
-            value: nil,
             errors: @user.errors
           } %>
         </div>
@@ -101,7 +100,6 @@
             key: :name_first,
             title: "",
             placeholder: "太郎",
-            value: nil,
             errors: @user.errors
           } %>
         </div>
@@ -111,7 +109,6 @@
             key: :name_last_kana,
             title: "氏名（カタカナ）",
             placeholder: "キンダイ",
-            value: nil,
             errors: @user.errors
           } %>
         </div>
@@ -121,7 +118,6 @@
             key: :name_first_kana,
             title: "",
             placeholder: "タロウ",
-            value: nil,
             errors: @user.errors
           } %>
         </div>
@@ -146,7 +142,8 @@
             option_value: :id,
             option_text: :name,
             prompt: "選択してください",
-            errors: @user.errors
+            errors: @user.errors,
+            disabled: @user.grade == 0
           } %>
         </div>
         <div class="col-span-6" id="department-input-wrapper">
@@ -154,10 +151,10 @@
             f: f,
             key: :department_id,
             title: "学科",
-            options: [],
+            options: @user.faculty_id.present? ? @user.faculty.departments : [],
             option_value: :id,
             option_text: :name,
-            disabled: true,
+            disabled: @user.faculty_id.blank? || @user.grade == 0,
             errors: @user.errors
           } %>
         </div>
@@ -167,8 +164,8 @@
             key: :student_id,
             title: "学籍番号",
             placeholder: "2XXYYYZZZZ",
-            value: @auth_data["kindai"].present? ? @auth_data["kindai"].get_student_id_from_email : nil,
-            errors: @user.errors
+            errors: @user.errors,
+            disabled: @user.grade == 0
           } %>
         </div>
         <div class="col-span-12">
@@ -177,7 +174,6 @@
             key: :phone_number,
             title: "電話番号",
             placeholder: "08012345678",
-            value: nil,
             errors: @user.errors
           } %>
         </div>
@@ -225,7 +221,7 @@
         const studentIdInput = $("#student_id-input-wrapper input");
         gradeSelect.on("change", function () {
             const graduated = $(this).val() === "0"
-            if(graduated){
+            if (graduated) {
                 facultySelect.val("")
                 departmentSelect.val("")
                 studentIdInput.val("")
@@ -236,7 +232,7 @@
                 facultySelect.prop("disabled", false)
                 studentIdInput.prop("disabled", false)
 
-                if(facultySelect.val() === ""){
+                if (facultySelect.val() === "") {
                     departmentSelect.prop("disabled", true)
                 } else {
                     departmentSelect.prop("disabled", false)
@@ -244,4 +240,5 @@
             }
         })
     })
+
 </script>

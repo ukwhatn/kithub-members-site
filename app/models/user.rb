@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_one :google_account, dependent: :destroy
   has_one :kindai_account, dependent: :destroy
 
-  belongs_to :faculty
-  belongs_to :department
+  belongs_to :faculty, optional: true
+  belongs_to :department, optional: true
 
   has_many :messages, foreign_key: :sender_id
   has_many :message_receivers
@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   validates :grade, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 6 }
-  validates :phone_number, presence: true, format: { with: /\A\d{2,4}\d{2,4}\d{3,4}\z/, message: "は「08012345678」の形式で入力してください" }
+  validates :phone_number, presence: true, format: { with: /\A0\d{9,10}\z/, message: "は「08012345678」の形式で入力してください" }
 
   def graduated?
     self.grade == 0
