@@ -25,11 +25,6 @@
 
   <div class="row flex-none w-full text-center border-kindai my-3 max-w-md">
     <div>
-      <% if @user.errors.include?(:kindai) %>
-        <div class="text-red-500 text-sm font-light">
-          <%= @user.errors.messages_for(:kindai) %>
-        </div>
-      <% end %>
       <%= render partial: "components/account_info_panel", :locals => {
         provider: "kindai",
         object: @auth_data["kindai"].present? ? @auth_data["kindai"] : nil,
@@ -39,13 +34,13 @@
         title: "kindai.ac.jpアカウント",
         display_key: "email"
       } %>
-    </div>
-    <div class="my-10">
-      <% if @user.errors.include?(:google) %>
-        <div class="text-red-500 text-sm font-light">
-          <%= @user.errors.messages_for(:google) %>
+      <% if @user.errors.include?(:kindai) %>
+        <div class="text-red-500 text-sm font-light mt-1">
+          <%= @user.errors.messages_for(:kindai).first %>
         </div>
       <% end %>
+    </div>
+    <div class="my-10">
       <%= render partial: "components/account_info_panel", :locals => {
         provider: "google",
         object: @auth_data["google"].present? ? @auth_data["google"] : nil,
@@ -55,13 +50,13 @@
         title: "Googleアカウント(任意)",
         display_key: "email"
       } %>
-    </div>
-    <div>
-      <% if @user.errors.include?(:discord) %>
-        <div class="text-red-500 text-sm font-light">
-          <%= @user.errors.messages_for(:discord) %>
+      <% if @user.errors.include?(:google) %>
+        <div class="text-red-500 text-sm font-light mt-1">
+          <%= @user.errors.messages_for(:google).first %>
         </div>
       <% end %>
+    </div>
+    <div>
       <%= render partial: "components/account_info_panel", :locals => {
         provider: "discord",
         object: @auth_data["discord"].present? ? @auth_data["discord"] : nil,
@@ -71,6 +66,11 @@
         title: "Discordアカウント",
         display_key: "name"
       } %>
+      <% if @user.errors.include?(:discord) %>
+        <div class="text-red-500 text-sm font-light mt-1">
+          <%= @user.errors.messages_for(:discord).first %>
+        </div>
+      <% end %>
     </div>
 
   </div>

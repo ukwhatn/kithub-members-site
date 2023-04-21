@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  # 必ずコントローラ内で確認すること
+  # 既卒 => google, discord必須
+  # 現役 => kindai, discord必須
   has_one :discord_account, dependent: :destroy
   has_one :github_account, dependent: :destroy
   has_one :google_account, dependent: :destroy
@@ -21,7 +24,7 @@ class User < ApplicationRecord
   validates :name_last_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角カタカナで入力してください" }
   validates :name_first_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/, message: "は全角カタカナで入力してください" }
 
-  # 既卒者に対するバリデーションを切る
+  # 現役生のみのバリデーション
   with_options unless: :graduated? do
     validates :student_id, presence: true, uniqueness: true, format: { with: /\A\d{10}\z/, message: "は10桁の数字で入力してください" }
     validates :faculty_id, presence: true

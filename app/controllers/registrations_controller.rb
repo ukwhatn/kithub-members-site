@@ -20,14 +20,26 @@ class RegistrationsController < ApplicationController
 
     # 外部認証系が充足しているか確認
     valid_auth_data = true
-    if @auth_data['kindai'].nil?
-      valid_auth_data = false
-      @user.errors.add(:kindai, 'kindai.ac.jpアカウントのログインが必要です')
-    end
+    if @user.graduated?
+      if @auth_data['google'].nil?
+        valid_auth_data = false
+        @user.errors.add(:google, '既卒者の方は、Googleアカウントを登録してください(必須)')
+      end
 
-    if @auth_data['discord'].nil?
-      valid_auth_data = false
-      @user.errors.add(:discord, 'Discordアカウントのログインが必要です')
+      if @auth_data['discord'].nil?
+        valid_auth_data = false
+        @user.errors.add(:discord, 'Discordアカウントを登録してください')
+      end
+    else
+      if @auth_data['kindai'].nil?
+        valid_auth_data = false
+        @user.errors.add(:kindai, 'kindai.ac.jpアカウントを登録してください')
+      end
+
+      if @auth_data['discord'].nil?
+        valid_auth_data = false
+        @user.errors.add(:discord, 'Discordアカウントを登録してください')
+      end
     end
 
     unless valid_auth_data
