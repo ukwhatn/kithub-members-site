@@ -1,9 +1,9 @@
 class CreateEquipment < ActiveRecord::Migration[7.0]
   def change
     create_table :equipment do |t|
-      t.string :name, null: false
+      t.string :name
 
-      t.text :description, null: false, default: ''
+      t.text :description, default: ''
 
       t.timestamps
     end

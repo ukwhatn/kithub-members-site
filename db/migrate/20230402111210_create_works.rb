@@ -1,14 +1,14 @@
 class CreateWorks < ActiveRecord::Migration[7.0]
   def change
     create_table :works do |t|
-      t.string :name, null: false
-      t.integer :work_genre_id, null: false
-      t.integer :user_id, null: false
+      t.string :name
+      t.integer :work_genre_id
+      t.integer :user_id
 
-      t.text :description, default: '', null: false
-      t.text :description_html, default: '', null: false
+      t.text :description, default: ''
+      t.text :description_html, default: ''
 
-      t.integer :project_id, null: true
+      t.integer :project_id
 
       t.timestamps
     end
