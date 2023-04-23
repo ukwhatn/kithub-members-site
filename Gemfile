@@ -37,7 +37,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # use redis for caching and sessions
-gem 'redis', "~> 4.8.1", "< 5"
+gem 'redis', "~> 5.0.6"
 gem "redis-actionpack"
 
 # for read .env
